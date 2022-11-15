@@ -26,5 +26,8 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="OPEN_WEATHER_API_URL" value="https://openweathermap.org/api"/>
+        <env name="OPEN_WEATHER_GEO_API" value="/geo/1.0/direct/"/>
+        <env name="OPEN_WEATHER_BASE_URL" value="https://api.openweathermap.org"/>
     </php>
 </phpunit>
