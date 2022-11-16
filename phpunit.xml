@@ -27,7 +27,8 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="OPEN_WEATHER_API_URL" value="https://openweathermap.org/api"/>
-        <env name="OPEN_WEATHER_GEO_API" value="/geo/1.0/direct/"/>
+        <env name="OPEN_WEATHER_GEO_API" value="/geo/1.0/direct"/>
         <env name="OPEN_WEATHER_BASE_URL" value="https://api.openweathermap.org"/>
+        <env name="OPEN_WEATHER_API_KEY" value="858f15fed9292cbe25c341a754c55e45" />
     </php>
 </phpunit>
