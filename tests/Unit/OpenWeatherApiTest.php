@@ -58,5 +58,4 @@ class OpenWeatherApiTest extends TestCase
             'redirects' => false,
         ];
     }
-
 }
