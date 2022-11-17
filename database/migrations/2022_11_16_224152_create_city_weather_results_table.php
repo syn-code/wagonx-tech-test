@@ -21,6 +21,7 @@ return new class extends Migration
                 $table->string('main', 255);
                 $table->text('description');
                 $table->string('icon',20);
+                $table->dateTime('date_time_weather_calculated');
                 $table->timestamps();
 
                 $table->foreign('city_id')
