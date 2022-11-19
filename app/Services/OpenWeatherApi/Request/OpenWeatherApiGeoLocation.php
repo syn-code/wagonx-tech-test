@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\OpenWeatherApi\Request;
 
+use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiGeoLocationInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Exception\InvalidArgumentException;

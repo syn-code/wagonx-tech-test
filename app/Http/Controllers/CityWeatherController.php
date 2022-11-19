@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OpenWeatherApi\Request\OpenWeatherApiGeoLocationInterface;
+use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiGeoLocationInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
