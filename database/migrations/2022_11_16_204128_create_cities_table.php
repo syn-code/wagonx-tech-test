@@ -20,6 +20,8 @@ return new class extends Migration
             Schema::create($this->table,function (Blueprint $table) {
                 $table->id();
                 $table->string('city', 255);
+                $table->string('country', 255);
+                $table->string('state', 255);
                 $table->float('lon');
                 $table->float('lat');
                 $table->timestamps();
@@ -37,6 +39,5 @@ return new class extends Migration
         if (Schema::hasTable($this->table)) {
             Schema::drop($this->table);
         }
-
     }
 };

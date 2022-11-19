@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\OpenWeatherApi\Request;
+namespace App\Services\OpenWeatherApi\Request\Contracts;
 
 use Psr\Http\Message\ResponseInterface;
 

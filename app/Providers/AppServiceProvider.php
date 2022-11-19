@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Services\OpenWeatherApi\Request\OpenWeatherApiGeoLocation;
-use App\Services\OpenWeatherApi\Request\OpenWeatherApiGeoLocationInterface;
+use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiGeoLocationInterface;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 

@@ -38,6 +38,8 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table($this->table, function (Blueprint $table) {
+            $table->dropForeign(['city_id']);
+        });
     }
 };
