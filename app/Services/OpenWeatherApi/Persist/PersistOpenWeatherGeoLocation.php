@@ -7,7 +7,7 @@ use App\Models\City;
 
 class PersistOpenWeatherGeoLocation
 {
-    public function persistData(OpenWeatherGeoLocationDTO $dto): City
+    public function persist(OpenWeatherGeoLocationDTO $dto): City
     {
         $existingCity = City::where('city', $dto->getCity())->first();
 
