@@ -5,11 +5,23 @@ namespace App\DataTransferObjects;
 
 class OpenWeatherGeoLocationDTO
 {
+    private int $id;
     private string $city;
     private string $country;
     private string $state;
     private float $longitude;
     private float $latitude;
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function setCity(string $city): self
     {

@@ -9,9 +9,8 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Exception\InvalidArgumentException;
 use HttpException;
-use Psr\Http\Message\ResponseInterface;
 
-class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
+final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
 {
     private ClientInterface $client;
     private const MAX_LIMIT = 5;
@@ -25,10 +24,10 @@ class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
     /**
      * @param  string  $cityNames
      * @param  int  $limit
-     * @return ResponseInterface
+     * @return array
      * @throws HttpException
      */
-    public function getCityByGeoLocation(string $cityNames, int $limit = self::MIN_LIMIT): ResponseInterface
+    public function getCityByGeoLocation(string $cityNames, int $limit = self::MIN_LIMIT): array
     {
         try {
 
@@ -49,6 +48,8 @@ class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
             throw new HttpException('Error Occurred, please try again');
         }
 
-        return $response;
+        return json_decode(
+            (string)$response->getBody()
+        );
     }
 }

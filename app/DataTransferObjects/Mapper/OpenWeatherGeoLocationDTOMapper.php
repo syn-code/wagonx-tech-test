@@ -7,22 +7,23 @@ use App\DataTransferObjects\OpenWeatherGeoLocationDTO;
 
 class OpenWeatherGeoLocationDTOMapper implements DTOMappingInterface
 {
-
     public function __construct(
-        private array $data,
-        private OpenWeatherGeoLocationDTO $dto
+        private OpenWeatherGeoLocationDTO $dto,
     ){
     }
 
-    public function map(): void
+    public function map(array $data): OpenWeatherGeoLocationDTO
     {
-       $this->dto
-        ->setCity($this->data['city'])
-       ->setCountry($this->data['country'])
-       ->setState($this->data['state'])
-       ->setLongitude($this->data['lon'])
-       ->setLatitude($this->data['lat']);
+       $data = array_shift($data);
 
+       $this->dto
+           ->setCity($data->name)
+           ->setCountry($data->country)
+           ->setState($data->state)
+           ->setLongitude($data->lon)
+           ->setLatitude($data->lat);
+
+       return $this->dto;
     }
 
     public function toJson(): string
