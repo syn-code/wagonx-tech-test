@@ -8,7 +8,6 @@ use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiGeoLocationInter
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Exception\InvalidArgumentException;
-use HttpException;
 
 final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
 {
@@ -25,7 +24,6 @@ final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterf
      * @param  string  $cityNames
      * @param  int  $limit
      * @return array
-     * @throws HttpException
      */
     public function getCityByGeoLocation(string $cityNames, int $limit = self::MIN_LIMIT): array
     {
@@ -45,7 +43,7 @@ final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterf
             $response =  $this->client->request('GET', $url);
 
         } catch (GuzzleException $exception) {
-            throw new HttpException('Error Occurred, please try again');
+            throw new InvalidArgumentException('Error Occurred, please try again');
         }
 
         return json_decode(
