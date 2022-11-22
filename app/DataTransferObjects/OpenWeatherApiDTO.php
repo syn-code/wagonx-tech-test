@@ -8,7 +8,7 @@ class OpenWeatherApiDTO
 {
     private int $id;
     private int $cityId;
-    private string $main;
+    private string $weather;
     private string $description;
     private string $icon;
     private DateTimeInterface $dateTimeWeatherCalculated;
@@ -35,15 +35,15 @@ class OpenWeatherApiDTO
         return $this->cityId;
     }
 
-    public function setMain(string $main): self
+    public function setWeather(string $weather): self
     {
-        $this->main = $main;
+        $this->weather = $weather;
         return $this;
     }
 
-    public function getMain(): string
+    public function getWeather(): string
     {
-        return $this->main;
+        return $this->weather;
     }
 
     public function setDescription(string $description): self

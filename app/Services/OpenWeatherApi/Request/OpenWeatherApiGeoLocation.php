@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Services\OpenWeatherApi\Request;
 
+use App\DataTransferObjects\Mapper\OpenWeatherGeoLocationDTOMapper;
+use App\DataTransferObjects\OpenWeatherGeoLocationDTO;
 use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiGeoLocationInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use http\Exception\InvalidArgumentException;
+use Illuminate\Http\Client\HttpClientException;
+use InvalidArgumentException;
 
 final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterface
 {
     private ClientInterface $client;
-    private const MAX_LIMIT = 5;
-    private const MIN_LIMIT = 1;
+    private array $geoLocationsAggregate = [];
 
     public function __construct(ClientInterface $client)
     {
@@ -21,33 +23,43 @@ final class OpenWeatherApiGeoLocation implements OpenWeatherApiGeoLocationInterf
     }
 
     /**
-     * @param  string  $cityNames
-     * @param  int  $limit
+     * @param  string  $locations
      * @return array
+     * @throws HttpClientException
      */
-    public function getCityByGeoLocation(string $cityNames, int $limit = self::MIN_LIMIT): array
+    public function getCityByGeoLocation(string $locations): array
     {
         try {
 
-            if ($limit > self::MAX_LIMIT) {
+            if (empty($locations)) {
                 throw new InvalidArgumentException(
-                    'City Search is passed it\'s limit it cannot be more than 5'
+                    'No City was entered'
                 );
             }
 
+            $cities = explode(',', $locations);
+
             $geoLocationUrl = getenv('OPEN_WEATHER_GEO_API');
             $appKey = getenv('OPEN_WEATHER_API_KEY');
-            $queryString = $cityNames;
-            $url = "$geoLocationUrl?q=$queryString&limit=$limit&appid=$appKey";
 
-            $response =  $this->client->request('GET', $url);
+            foreach ($cities as $key => $city) {
+                $url = "$geoLocationUrl?q=$city&appid=$appKey";
+                $response =  $this->client->request('GET', $url);
+                $this->mapResult(
+                    json_decode((string)$response->getBody())
+                );
+            }
 
         } catch (GuzzleException $exception) {
-            throw new InvalidArgumentException('Error Occurred, please try again');
+            throw new HttpClientException('Error Occurred, please try again');
         }
 
-        return json_decode(
-            (string)$response->getBody()
-        );
+       return $this->geoLocationsAggregate;
+    }
+
+    private function mapResult(array $location): void
+    {
+        $dtoMapper = new OpenWeatherGeoLocationDTOMapper(new OpenWeatherGeoLocationDTO());
+        $this->geoLocationsAggregate[] = $dtoMapper->map($location);
     }
 }

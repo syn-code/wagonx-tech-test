@@ -23,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(OpenWeatherApiGeoLocationInterface::class, function($app) {
-            return new OpenWeatherApiGeoLocation(new Client());
+            return new OpenWeatherApiGeoLocation(
+                new Client(),
+            );
         });
 
         $this->app->bind(OpenWeatherApiInterface::class, function ($app) {

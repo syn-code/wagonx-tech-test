@@ -2,25 +2,33 @@
 
 namespace App\Services\OpenWeatherApi\Persist;
 
-use App\DataTransferObjects\OpenWeatherGeoLocationDTO;
 use App\Models\City;
 
 class PersistOpenWeatherGeoLocation
 {
-    public function persist(OpenWeatherGeoLocationDTO $dto): City
-    {
-        $existingCity = City::where('city', $dto->getCity())->first();
+    private array $cityCollection = [];
 
-        if ($existingCity) {
-            return $existingCity;
+    public function persist(array $cityNames): array
+    {
+        foreach ($cityNames as $city) {
+
+            $existingCity = City::where('city', $city->getCity())->first();
+
+            if ($existingCity) {
+                $this->cityCollection[] = $existingCity;
+            } else {
+                $createdCity = City::create([
+                    'city' => $city->getCity(),
+                    'country' => $city->getCountry(),
+                    'state' => $city->getState(),
+                    'lon' => $city->getLongitude(),
+                    'lat' => $city->getLatitude(),
+                ]);
+
+                $this->cityCollection[] = $createdCity;
+            }
         }
 
-        return City::create([
-            'city' => $dto->getCity(),
-            'country' => $dto->getCountry(),
-            'state' => $dto->getState(),
-            'lon' => $dto->getLongitude(),
-            'lat' => $dto->getLatitude(),
-        ]);
+        return $this->cityCollection;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Services\OpenWeatherApi\Request;
 
+use App\DataTransferObjects\Mapper\OpenWeatherApiDTOMapper;
+use App\DataTransferObjects\OpenWeatherApiDTO;
 use App\Services\OpenWeatherApi\Request\Contracts\OpenWeatherApiInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -9,7 +11,7 @@ use InvalidArgumentException;
 
 class OpenWeatherApi implements OpenWeatherApiInterface
 {
-    private array $weatherPayload = [];
+    private array $weatherAggregate = [];
     private ClientInterface $client;
 
     public function __construct(ClientInterface $client)
@@ -17,30 +19,28 @@ class OpenWeatherApi implements OpenWeatherApiInterface
         $this->client = $client;
     }
 
-    public function getWeatherForCity(float $lat, float $lon): array
+    public function getWeatherForCity(array $geoLocations): array
     {
         try {
             $openWeatherApiUrl = getenv('OPEN_WEATHER_API');
             $appKey = getenv('OPEN_WEATHER_API_KEY');
-            $url = "$openWeatherApiUrl?lat=$lat&lon=$lon&appid=$appKey";
-
-            $response = $this->client->request('GET', $url);
-            dd(json_decode($response->getBody()));
-
+            $url = '';
+            foreach ($geoLocations as $key => $value) {
+                $url = "$openWeatherApiUrl?lat={$value['lat']}&lon={$value['lon']}&cnt=5&appid=$appKey";
+                $response = $this->client->request('GET', $url);
+                $this->mapResults(json_decode($response->getBody(), true), $value['id']);
+            }
         } catch (GuzzleException $exception) {
             throw new InvalidArgumentException('Error Occurred, please try again');
         }
 
+        return $this->weatherAggregate;
     }
 
-    public function push(array $weatherData): void
+    public function mapResults(array $weatherData, int $cityId): void
     {
-        $this->weatherPayload[] = $weatherData;
+        foreach ($weatherData['list'] as $key => $weather) {
+            $this->weatherAggregate[] = (new OpenWeatherApiDTOMapper(new OpenWeatherApiDTO()))->map($weather, $cityId);
+        }
     }
-
-    public function getWeatherPayload(): array
-    {
-        return $this->weatherPayload;
-    }
-
 }

@@ -14,22 +14,18 @@ class OpenWeatherGeoLocationDTOMapper implements DTOMappingInterface
 
     public function map(array $data): OpenWeatherGeoLocationDTO
     {
+
        $data = array_shift($data);
 
-       $this->dto
-           ->setCity($data->name)
-           ->setCountry($data->country)
-           ->setState($data->state)
-           ->setLongitude($data->lon)
-           ->setLatitude($data->lat);
+        foreach ($data as $key => $value) {
+            $this->dto
+                ->setCity($data->name)
+                ->setCountry($data->country)
+                ->setState($data->state)
+                ->setLongitude($data->lon)
+                ->setLatitude($data->lat);
+        }
 
        return $this->dto;
-    }
-
-    public function toJson(): string
-    {
-        return json_encode(
-            get_object_vars($this->dto)
-        );
     }
 }
