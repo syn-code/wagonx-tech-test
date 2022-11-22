@@ -1,4 +1,4 @@
-#Tech Test Instructions
+# Tech Test Instructions
 <p>
     To get started clone the repository
     <code>git clone https://github.com/syn-code/wagonx-tech-test.git</code>
@@ -16,7 +16,7 @@
     Once in the container we will require to run <code>php artisan migrate</code>
 </p>
 
-#Before Using the APi
+# Before Using the APi
 <p>
     Before we can run the API, ensure the following keys are set within the <code>.env</code>
 </p>
@@ -26,7 +26,10 @@ OPEN_WEATHER_API_KEY=open-weather-api-key
 OPEN_WEATHER_GEO_API=https://api.openweathermap.org/geo/1.0/direct
 </code>
 
-
+# Api Routes
+<p>Separate each city with a comma <code>,</code> for example <code>/api/weather-for-city/Cardiff,London</code></p>
+<code>/api/weather-for-city/{city}</code>
+<p>The Results will then be returned in JSON format</p>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
