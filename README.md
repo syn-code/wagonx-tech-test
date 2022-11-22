@@ -1,3 +1,32 @@
+#Tech Test Instructions
+<p>
+    To get started clone the repository
+    <code>git clone https://github.com/syn-code/wagonx-tech-test.git</code>
+</p>
+
+<p>
+    Once the repository has been cloned, you will require to run <code>./vendor/bin/sail up -d</code>
+</p>
+
+<p>
+    We then need to run the migrations, <code>./vendor/bin/sail shell</code>
+</p>
+
+<p>
+    Once in the container we will require to run <code>php artisan migrate</code>
+</p>
+
+#Before Using the APi
+<p>
+    Before we can run the API, ensure the following keys are set within the <code>.env</code>
+</p>
+<code>
+OPEN_WEATHER_API=https://api.openweathermap.org/data/2.5/forecast
+OPEN_WEATHER_API_KEY=open-weather-api-key
+OPEN_WEATHER_GEO_API=https://api.openweathermap.org/geo/1.0/direct
+</code>
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
