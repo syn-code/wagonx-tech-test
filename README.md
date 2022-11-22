@@ -16,6 +16,10 @@
     Once in the container we will require to run <code>php artisan migrate</code>
 </p>
 
+# .env File Setup
+<p>Please take the example .env file and remove the word example and save
+</p>
+
 # Before Using the APi
 <p>
     Before we can run the API, ensure the following keys are set within the <code>.env</code>
