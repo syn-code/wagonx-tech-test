@@ -27,7 +27,8 @@ OPEN_WEATHER_GEO_API=https://api.openweathermap.org/geo/1.0/direct</code>
 # Api Routes
 <p>Separate each city with a comma <code>,</code> for example <code>/api/weather-for-city/Cardiff,London</code></p>
 <code>/api/weather-for-city/{city}</code>
-<p>The Results will then be returned in JSON format</p>
+The Results will then be returned in JSON format
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
