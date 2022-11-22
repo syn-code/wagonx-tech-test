@@ -21,7 +21,7 @@
     Before we can run the API, ensure the following keys are set within the <code>.env</code>
 </p>
 <code>OPEN_WEATHER_API=https://api.openweathermap.org/data/2.5/forecast</code>
-<code>OPEN_WEATHER_API_KEY=open-weather-api-key</code
+<code>OPEN_WEATHER_API_KEY=open-weather-api-key</code>
 <code>OPEN_WEATHER_GEO_API=https://api.openweathermap.org/geo/1.0/direct</code>
 
 # Api Routes
