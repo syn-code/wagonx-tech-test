@@ -8,7 +8,7 @@ class PersistOpenWeatherResult
 {
     private array $weatherCollection = [];
 
-    public function persist(array $weather): array
+    public function persist(array $weather)
     {
         foreach ($weather as $key => $value) {
             $weather = CityWeatherResult::create([
@@ -22,6 +22,10 @@ class PersistOpenWeatherResult
             array_push($this->weatherCollection, $weather);
         }
 
-        return $this->weatherCollection;
+        $ids = array_map(function ($weather) {
+            return $weather->id;
+        }, $this->weatherCollection);
+
+        return CityWeatherResult::whereIn('id', array_values($ids))->get();
     }
 }

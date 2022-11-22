@@ -24,10 +24,16 @@ class CityWeatherController extends Controller
         $weatherForecast = $this->openWeatherApi->getWeatherForCity($storedGeoLocations);
         $weatherForCities = (new PersistOpenWeatherResult())->persist($weatherForecast);
 
-        dd($weatherForCities);
+        $data =  $weatherForCities->map(function ($weather) {
+            return [
+                'city' => $weather->city->city,
+                'weather' => $weather->main,
+                'weather_description' => $weather->description,
+                'weather_icon' => $weather->icon,
+                'date_of_forecast' => $weather->date_time_weather_calculated,
+            ];
+        })->toJson();
 
-        return new Response(
-
-        );
+        return new Response($data);
     }
 }
